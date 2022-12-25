@@ -41,28 +41,29 @@ main(int argc, char *argv[])
 
   if(argc <= 1){
     fprintf(2, "usage: grep pattern [file ...]\n");
-    exit();
+    exit(1);
   }
   pattern = argv[1];
 
   if(argc <= 2){
     grep(pattern, 0);
-    exit();
+    exit(0);
   }
 
   for(i = 2; i < argc; i++){
     if((fd = open(argv[i], 0)) < 0){
       printf("grep: cannot open %s\n", argv[i]);
-      exit();
+      exit(1);
     }
     grep(pattern, fd);
     close(fd);
   }
-  exit();
+  exit(0);
 }
 
 // Regexp matcher from Kernighan & Pike,
-// The Practice of Programming, Chapter 9.
+// The Practice of Programming, Chapter 9, or
+// https://www.cs.princeton.edu/courses/archive/spr09/cos333/beautiful.html
 
 int matchhere(char*, char*);
 int matchstar(int, char*, char*);
