@@ -20,9 +20,3 @@
 #define SYS_link   19
 #define SYS_mkdir  20
 #define SYS_close  21
-
-// System calls for labs
-#define SYS_ntas   22
-#define SYS_crash  23
-#define SYS_mount  24
-#define SYS_umount 25

@@ -42,6 +42,7 @@ ls(char *path)
   }
 
   switch(st.type){
+  case T_DEVICE:
   case T_FILE:
     printf("%s %d %d %l\n", fmtname(path), st.type, st.ino, st.size);
     break;
@@ -77,9 +78,9 @@ main(int argc, char *argv[])
 
   if(argc < 2){
     ls(".");
-    exit();
+    exit(0);
   }
   for(i=1; i<argc; i++)
     ls(argv[i]);
-  exit();
+  exit(0);
 }
