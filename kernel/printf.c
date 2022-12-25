@@ -109,6 +109,7 @@ printf(char *fmt, ...)
       break;
     }
   }
+  va_end(ap);
 
   if(locking)
     release(&pr.lock);
@@ -121,7 +122,7 @@ panic(char *s)
   printf("panic: ");
   printf(s);
   printf("\n");
-  panicked = 1; // freeze other CPUs
+  panicked = 1; // freeze uart output from other CPUs
   for(;;)
     ;
 }

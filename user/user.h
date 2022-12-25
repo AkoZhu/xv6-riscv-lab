@@ -1,16 +1,15 @@
 struct stat;
-struct rtcdate;
 
 // system calls
 int fork(void);
-int exit(void) __attribute__((noreturn));
-int wait(void);
+int exit(int) __attribute__((noreturn));
+int wait(int*);
 int pipe(int*);
 int write(int, const void*, int);
 int read(int, void*, int);
 int close(int);
 int kill(int);
-int exec(char*, char**);
+int exec(const char*, char**);
 int open(const char*, int);
 int mknod(const char*, short, short);
 int unlink(const char*);
@@ -23,10 +22,6 @@ int getpid(void);
 char* sbrk(int);
 int sleep(int);
 int uptime(void);
-int ntas();
-int crash(const char*, int);
-int mount(char*, char *);
-int umount(char*);
 
 // ulib.c
 int stat(const char*, struct stat*);
@@ -42,3 +37,5 @@ void* memset(void*, int, uint);
 void* malloc(uint);
 void free(void*);
 int atoi(const char*);
+int memcmp(const void *, const void *, uint);
+void *memcpy(void *, const void *, uint);
