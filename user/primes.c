@@ -27,6 +27,13 @@ const uint INT_LEN = sizeof(int);
           int rpipe[2];
           pipe(rpipe);
 
+          while(read(lpipe[RD], &data, sizeof(int)) == sizeof(int)){
+              // if the data can't be divided by the first data, write it to the right neighbor.
+              if(data % first != 0){
+                  write(rpipe[WR], &data, sizeof(int));
+              }
+          }
+
           if(fork() == 0){
               close(lpipe[RD]);
               primes(rpipe);
@@ -34,12 +41,12 @@ const uint INT_LEN = sizeof(int);
               close(rpipe[RD]);
 
 
-              while(read(lpipe[RD], &data, sizeof(int)) == sizeof(int)){
-                  // if the data can't be divided by the first data, write it to the right neighbor.
-                  if(data % first != 0){
-                      write(rpipe[WR], &data, sizeof(int));
-                  }
-              }
+//              while(read(lpipe[RD], &data, sizeof(int)) == sizeof(int)){
+//                  // if the data can't be divided by the first data, write it to the right neighbor.
+//                  if(data % first != 0){
+//                      write(rpipe[WR], &data, sizeof(int));
+//                  }
+//              }
 
 
               close(rpipe[WR]);
@@ -57,13 +64,17 @@ const uint INT_LEN = sizeof(int);
       int p[2];
       pipe(p);
 
+     for(int i = 2; i < 36; i++){
+         write(p[WR], &i, INT_LEN);
+     }
+
       if(fork() == 0){
           primes(p);
       }else{
           close(p[RD]);
-          for(int i = 2; i < 36; i++){
-              write(p[WR], &i, INT_LEN);
-          }
+//          for(int i = 2; i < 36; i++){
+//              write(p[WR], &i, INT_LEN);
+//          }
           close(p[WR]);
 
           wait(0);
