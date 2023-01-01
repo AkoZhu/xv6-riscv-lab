@@ -136,9 +136,11 @@ UPROGS=\
 	$U/_pingpong\
 	$U/_find\
 	$U/_primes\
+	$U/_xargs\
 
-fs.img: mkfs/mkfs README $(UPROGS)
-	mkfs/mkfs fs.img README $(UPROGS)
+
+fs.img: mkfs/mkfs README $(UPROGS) user/xargstest.sh
+	mkfs/mkfs fs.img README $(UPROGS) user/xargstest.sh
 
 -include kernel/*.d user/*.d
 
