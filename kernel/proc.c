@@ -312,6 +312,9 @@ fork(void)
 
   pid = np->pid;
 
+  // copy the tracemask from the parent
+  np->tracemask = p->tracemask;
+
   release(&np->lock);
 
   acquire(&wait_lock);

@@ -89,3 +89,28 @@ sys_uptime(void)
   release(&tickslock);
   return xticks;
 }
+
+uint64
+sys_trace(void){
+    int mask;
+
+    // get the argument from the user.
+    argint(0, &mask);
+
+    if(mask < 0){
+        return -1;
+    }
+
+    // convert int mask to uint32 bitmask.
+    uint32 bitmask = (uint32) mask;
+
+    // 4294967295 is the max value of uint32.
+    myproc()->tracemask = bitmask;
+    return 0;
+
+}
+
+uint64
+sys_info(void){
+    return 0;
+}

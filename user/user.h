@@ -39,3 +39,9 @@ void free(void*);
 int atoi(const char*);
 int memcmp(const void *, const void *, uint);
 void *memcpy(void *, const void *, uint);
+
+
+// lab
+int trace(int);
+struct sysinfo;
+int sysinfo(struct sysinfo *);

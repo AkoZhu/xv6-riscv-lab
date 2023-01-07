@@ -137,7 +137,8 @@ UPROGS=\
 	$U/_find\
 	$U/_primes\
 	$U/_xargs\
-
+	$U/_trace\
+	$U/_sysinfotest\
 
 fs.img: mkfs/mkfs README $(UPROGS) user/xargstest.sh
 	mkfs/mkfs fs.img README $(UPROGS) user/xargstest.sh
