@@ -5,6 +5,7 @@
 #include "memlayout.h"
 #include "spinlock.h"
 #include "proc.h"
+#include "sysinfo.h"
 
 uint64
 sys_exit(void)
@@ -110,7 +111,25 @@ sys_trace(void){
 
 }
 
+extern uint64 kfree_bytes(void);
+extern uint64 get_unused_proc(void);
+
 uint64
 sys_info(void){
+    struct sysinfo info;
+
+    // get all needed infomation in kernel mode.
+    info.freemem = kfree_bytes();
+    info.nproc = get_unused_proc();
+
+    // get the virtual address from the user.
+    uint64 destaddr;
+    argaddr(0, &destaddr);
+
+    // copy the information from kernel to user.
+    if(copyout(myproc()->pagetable, destaddr, (char *)&info, sizeof(info)) < 0){
+        return -1;
+    }
+
     return 0;
 }
